@@ -27,13 +27,20 @@ namespace Tremor.Items
 			item.shoot = mod.ProjectileType("CrabStaffPro");
 			item.shootSpeed = 1f;
 			item.buffType = mod.BuffType("CrabBuff");
-			item.buffTime = 3600;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Crab Staff");
 			Tooltip.SetDefault("Summons a little crab to fight for you.");
+		}
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
 		}
 
 		public override bool AltFunctionUse(Player player)
