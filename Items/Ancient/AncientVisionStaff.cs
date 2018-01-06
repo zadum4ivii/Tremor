@@ -27,13 +27,20 @@ namespace Tremor.Items.Ancient
 			item.shoot = mod.ProjectileType("AncientVisionPro");
 			item.shootSpeed = 1f;
 			item.buffType = mod.BuffType("AncientVisionBuff");
-			item.buffTime = 3600;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Vision Staff");
 			Tooltip.SetDefault("Summons an ancient vision to fight for you.");
+		}
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
 		}
 
 		public override bool AltFunctionUse(Player player)
