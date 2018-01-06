@@ -27,13 +27,20 @@ namespace Tremor.Items
 			item.shoot = mod.ProjectileType("HuskyStaffPro");
 			item.shootSpeed = 1f;
 			item.buffType = mod.BuffType("HuskyBuff");
-			item.buffTime = 3600;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Husky Staff");
 			Tooltip.SetDefault("Summons a husky to fight for you.");
+		}
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
 		}
 
 		public override bool AltFunctionUse(Player player)
