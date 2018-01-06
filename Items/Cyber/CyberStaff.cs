@@ -28,13 +28,20 @@ namespace Tremor.Items.Cyber
 			item.shoot = mod.ProjectileType("CyberStaffPro");
 			item.shootSpeed = 2f;
 			item.buffType = mod.BuffType("CyberSawBuff");
-			item.buffTime = 3600;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cyber Staff");
 			Tooltip.SetDefault("Summons a cyber saw to fight for you.");
+		}
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
 		}
 
 		public override bool AltFunctionUse(Player player)
